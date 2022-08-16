@@ -1,7 +1,11 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"github.com/labstack/echo/v4"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.uber.org/zap"
 	"log"
 )
@@ -13,11 +17,11 @@ type student struct {
 	Branch  string
 	UserID  string
 }
-
-type studentList struct {
-	//stdLists []student
-	m map[int]student
-	//info map[int]student
+type mongoStore struct {
+	ctx               context.Context
+	client            *mongo.Client
+	collection        *mongo.Collection
+	ticketsCollection *mongo.Collection
 }
 
 // Receive add, delete, update, and get request from client
@@ -43,22 +47,36 @@ func main() {
 		}
 	}(logger)
 	zap.ReplaceGlobals(logger)
-	record := new(studentList)
-	record.m = make(map[int]student)
+
+	record := new(mongoStore)
+	record.ctx = context.TODO()
+	opts := options.Client().ApplyURI("mongodb+srv://database1:mongodbpwd@cluster0.pq79yox.mongodb.net/?retryWrites=true&w=majority")
+
+	record.client, err = mongo.Connect(record.ctx, opts)
+	if err != nil {
+		panic(err)
+	}
+
+	defer record.client.Disconnect(record.ctx)
+
+	fmt.Printf("%T\n", record.client)
+
+	testDB := record.client.Database("test")
+	fmt.Printf("%T\n", testDB)
+
+	record.collection = testDB.Collection("example")
+	//defer exampleCollection.Drop(ctx)
+
+	fmt.Printf("%T\n", record.collection)
 	e := echo.New()
 	e.GET("/", record.homeHandler)
-	//e.GET("/add", record.addHandler)
 	e.POST("/add", record.addHandler)
-	//e.GET("/delete", record.deleteHandler)
 	e.POST("/delete", record.deleteHandler)
-	//e.GET("/update", record.updateHandler)
+	e.POST("/filter/:parameter", record.filterHandler)
 	e.POST("/edit", record.editHandler)
-	//e.GET("/filter", record.filterHandler)
-	e.POST("/filter", record.filterHandler)
-
-	//e.POST("/", record.homeHandler)
-	//e.GET("/users/:id", record.getUser)
-	e.Logger.Fatal(e.Start(":8080"))
+	//e.POST("/edit/:rollno", record.editHandler1)
+	//e.POST("/edit/:parameter", record.updateHandler)
+	e.Logger.Fatal(e.Start(":4000"))
 	//e.Start(":8080")
 
 }
