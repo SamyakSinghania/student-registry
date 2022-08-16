@@ -38,6 +38,7 @@ go run web/*.go
 To make a POST request to the server, POSTMAN is used. \
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/22128788-c6445aea-3acd-43a4-b53f-9f8aac12db36?action=collection%2Ffork&collection-url=entityId%3D22128788-c6445aea-3acd-43a4-b53f-9f8aac12db36%26entityType%3Dcollection%26workspaceId%3D41aa9d90-9dda-47ab-88ac-d573fd655c8c)\
 Use the above link to send key value pair for any of the routes.\
+Click on the above button and then click on view collection. You must be logged in to Postman to send a POST request.\
 The ideal request to each handler is already defined in the above link.
 To edit any key value pair \
 Head to **BODY->form-data->key-value pair** and change the value of the key.
