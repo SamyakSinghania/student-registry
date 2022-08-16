@@ -37,7 +37,6 @@ go run web/*.go
 ## POST Requests to the server
 To make a POST request to the server, POSTMAN is used. \
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.postman.co/run-collection/d1f5d4bfd4a7c4c08d81?action=collection%2Fimport)
-
 Use the above link to send key value pair for any of the routes.\
 To edit any key value pair \
 Head to **BODY->form-data->key-value pair** and change the value of the key.
