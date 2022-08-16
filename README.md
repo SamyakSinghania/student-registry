@@ -36,8 +36,9 @@ go run web/*.go
 
 ## POST Requests to the server
 To make a POST request to the server, POSTMAN is used. \
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/22128788-c6445aea-3acd-43a4-b53f-9f8aac12db36?action=collection%2Ffork&collection-url=entityId%3D22128788-c6445aea-3acd-43a4-b53f-9f8aac12db36%26entityType%3Dcollection%26workspaceId%3D41aa9d90-9dda-47ab-88ac-d573fd655c8c)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/22128788-c6445aea-3acd-43a4-b53f-9f8aac12db36?action=collection%2Ffork&collection-url=entityId%3D22128788-c6445aea-3acd-43a4-b53f-9f8aac12db36%26entityType%3Dcollection%26workspaceId%3D41aa9d90-9dda-47ab-88ac-d573fd655c8c)\
 Use the above link to send key value pair for any of the routes.\
+The ideal request to each handler is already defined in the above link.
 To edit any key value pair \
 Head to **BODY->form-data->key-value pair** and change the value of the key.
 The name of the keys are as follows:
@@ -46,6 +47,20 @@ The name of the keys are as follows:
 * **branch**
 * **userid**
 
+In the add route, the key value pair is as follows:
+`name`,`rollno`,`branch`,`userid`
+
+In the delete route, the key value pair is as follows:
+`rollno`
+
+In the filter route, the key value pair is as follows:
+`parameter`,`value`
+
+`parameter` can be one of the following:
+`name`,`rollno`,`branch`,`userid`
+
+In the edit route, the key value pair is as follows:
+`rollno`
 
 
 
