@@ -41,6 +41,12 @@ To make a POST request to the server, POSTMAN is used. \
 Use the above link to send key value pair for any of the routes.\
 To edit any key value pair \
 Head to **BODY->form-data->key-value pair** and change the value of the key.
+The name of the keys are as follows:
+* **name**
+* **rollno**
+* **branch**
+* **userid**
+
 
 
 
