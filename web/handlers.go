@@ -11,7 +11,9 @@ import (
 
 func (record *mongoStore) homeHandler(c echo.Context) error {
 	zap.S().Info("Executing homeHandler")
-	return c.String(http.StatusOK, "Hello, World!")
+	return c.String(http.StatusOK, "You are in the Home Handler of the Student Registry. "+
+		"Send POST requests to /add, /delete, /filter, /edit according to the the specified key value pairs "+
+		"to make changes to the database."+"\n"+"Send GET requests to /all to get all the records in the database.")
 }
 func (record *mongoStore) addHandler(c echo.Context) error {
 	zap.S().Info("Executing addHandler")
@@ -20,9 +22,8 @@ func (record *mongoStore) addHandler(c echo.Context) error {
 	rollno, err := strconv.Atoi(rollnoString)
 	if err != nil {
 		zap.S().Error(err)
-		fmt.Println(rollnoString)
-		//return c.String(http.StatusBadRequest,
-		//	http.StatusText(http.StatusBadRequest))
+		return c.String(http.StatusBadRequest,
+			http.StatusText(http.StatusBadRequest))
 	}
 	branch := c.FormValue("branch")
 	userid := c.FormValue("userid")
@@ -92,7 +93,6 @@ func (record *mongoStore) filterHandler(c echo.Context) error {
 		panic(err)
 	}
 	return c.JSONPretty(http.StatusOK, lists, "  ")
-	//return c.JSON(http.StatusOK, lists)
 }
 func (record *mongoStore) editHandler(c echo.Context) error {
 	zap.S().Info("Executing updateHandler")
@@ -138,7 +138,6 @@ func (record *mongoStore) editHandler(c echo.Context) error {
 	var result bson.M
 	entry.Decode(&result)
 	return c.JSONPretty(http.StatusOK, result, "  ")
-	//return c.JSON(http.StatusOK, result)
 }
 func (record *mongoStore) allHandler(c echo.Context) error {
 	zap.S().Info("Executing allHandler")
